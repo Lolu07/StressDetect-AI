@@ -2,14 +2,19 @@ import streamlit as st
 import pickle
 import os
 import numpy as np
-from model import train_model
 
+try:
+    from model import train_model
+except Exception as e:
+    st.error("model.py failed to import. Real error below:")
+    st.exception(e)
+    st.stop()
+    
 st.set_page_config(page_title="AI Stress Analyzer", page_icon="🧠")
 
 
 if not os.path.exists("model.pkl"):
-    with st.spinner("Training model for first-time setup..."):
-        train_model()
+    train_model()
 
 with open("model.pkl", "rb") as f:
     bundle = pickle.load(f)
