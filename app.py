@@ -8,7 +8,8 @@ st.set_page_config(page_title="AI Stress Analyzer", page_icon="🧠")
 
 
 if not os.path.exists("model.pkl"):
-    train_model()
+    with st.spinner("Training model for first-time setup..."):
+        train_model()
 
 with open("model.pkl", "rb") as f:
     bundle = pickle.load(f)
